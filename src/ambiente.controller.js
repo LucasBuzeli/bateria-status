@@ -18,6 +18,9 @@ const verificarAmbiente = async (baseUrl, userObject) => {
 const recuperarMensagemMaisRecente = (baseUrl, actualSnapshot) => {
    let maiorTimestamp = 0;
    let tag = null;
+   let battery = null;
+   let serial = null;
+   let family = null;
 
 
    actualSnapshot.forEach((elementoAtual, indice) => {
@@ -26,27 +29,22 @@ const recuperarMensagemMaisRecente = (baseUrl, actualSnapshot) => {
       let myStringDate = myOriginalDate.substring(0, 2);
       let myStringMonth = myOriginalDate.substring(3, 5);
       let myStringYear = myOriginalDate.substring(6, 10);
-
       let myStringHour = myOriginalDate.substring(11, 13);
       let myStringMinute = myOriginalDate.substring(14, 16);
       let myStringSecond = myOriginalDate.substring(17, 19);
 
       let dataFormatada = `${myStringYear}/${myStringMonth}/${myStringDate} ${myStringHour}:${myStringMinute}:${myStringSecond}`;
-
       let myDate = new Date(dataFormatada);
       
-      if (myDate.getTime() > maiorTimestamp) {
+        battery = elementoAtual.battery;
          tag = elementoAtual.tag;
+         serial = elementoAtual.serial;
+         family = elementoAtual.family;
          maiorTimestamp = myDate.getTime();
          
-      }
+      console.log(`Mensagem: ${elementoAtual.message_date} | Bateria: ${battery} | Tag: ${tag} | Serial: ${serial} | Familia: ${family}`);
+      
    });
-   return {
-      ambiente: baseUrl,
-      ultimaMensagem: new Date(maiorTimestamp),
-      tag: tag,
-      quantidade: actualSnapshot.length,
-   };
 
 };
 

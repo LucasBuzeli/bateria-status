@@ -41,11 +41,11 @@ const recuperarMensagemMaisRecente = (baseUrl, actualSnapshot) => {
          serial = elementoAtual.serial;
          family = elementoAtual.family;
          maiorTimestamp = myDate.getTime();
-         
-      console.log(`Mensagem: ${elementoAtual.message_date} | Bateria: ${battery} | Tag: ${tag} | Serial: ${serial} | Familia: ${family}`);
-      
+        
+       if (battery < 90) {
+         console.log(`Mensagem: ${elementoAtual.message_date} | Bateria: ${battery} | Tag: ${tag} | Serial: ${serial} | Familia: ${family}`);
+       }
    });
-
 };
 
 module.exports = { verificarAmbiente };
